@@ -16,7 +16,7 @@ function App(): JSX.Element {
                 </Row>
                 <Row>
                     <Col>
-                        <h1>♪Ruffneck Traveling Bard Service♫</h1>
+                        <h1>♪Ruffneck Traveling Bard Service♫ (CISC275)</h1>
                         <p>
                             Need some music to spice up your adventure? Need
                             some tunes to make the destination feel less far?{" "}
