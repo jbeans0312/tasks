@@ -16,23 +16,6 @@ describe("Some HTML Elements are added.", () => {
         expect(image).toBeInTheDocument();
         expect(image).toHaveAttribute("alt");
     });
-
-    test("There is a list with at least three elements", () => {
-        render(<App />);
-        const list = screen.getByRole("list");
-        expect(list).toBeInTheDocument();
-        expect(list.children.length).toBeGreaterThanOrEqual(3);
-    });
-});
-
-describe("Some basic CSS is added.", () => {
-    test("The background color of the header area is different", () => {
-        render(<App />);
-        const banner = screen.getByRole("banner");
-        expect(banner).not.toHaveStyle({
-            "background-color": "rgb(40, 44, 52)"
-        });
-    });
 });
 
 describe("Some Bootstrap Elements are added", () => {
