@@ -62,7 +62,7 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    const question = (str: string): boolean => str.endsWith("?");
+    const question = (str: string): boolean => !str.endsWith("?");
     const noQuestions = messages.filter(question);
 
     const properlyExcited = noQuestions.map((str: string): string =>
