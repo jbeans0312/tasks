@@ -1,6 +1,6 @@
+import { duplicateQuestion, makeBlankQuestion } from "./objects";
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
-
 /**
  * Consumes an array of questions and returns a new array with only the questions
  * that are `published`.
@@ -179,7 +179,8 @@ export function addNewQuestion(
     name: string,
     type: QuestionType
 ): Question[] {
-    return [];
+    const questionsWithNew = [...questions, makeBlankQuestion(id, name, type)];
+    return questionsWithNew;
 }
 
 /***
@@ -192,7 +193,11 @@ export function renameQuestionById(
     targetId: number,
     newName: string
 ): Question[] {
-    return [];
+    const newQuestions = questions.map(
+        (question: Question): Question =>
+            question.id === targetId ? { ...question, name: newName } : question
+    );
+    return newQuestions;
 }
 
 /***
@@ -207,7 +212,23 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    return [];
+    if (newQuestionType === "short_answer_question") {
+        const changedQuestions = questions.map(
+            (question: Question): Question =>
+                question.id === targetId
+                    ? { ...question, type: newQuestionType, options: []}
+                    : question
+        );
+        return changedQuestions;
+    } else {
+        const changedQuestions = questions.map(
+            (question: Question): Question =>
+                question.id === targetId
+                    ? { ...question, type: newQuestionType}
+                    : question
+        );
+        return changedQuestions;
+    }
 }
 
 /**
@@ -226,7 +247,27 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ): Question[] {
-    return [];
+    //learned how to use lamdas B)
+    const editOp = function (q: Question, targetIndex: number, newOp: string) {
+        let newQ: Question;
+        if (targetIndex === -1) {
+            newQ = { ...q, options: [...q.options, newOp] };
+        } else {
+            newQ = {
+                ...q,
+                options: q.options.splice(targetIndex, 1, newOp)
+            };
+        }
+        return newQ;
+    };
+
+    const editedQuestions = questions.map(
+        (question: Question): Question =>
+            question.id === targetId
+                ? editOp(question, targetOptionIndex, newOption)
+                : question
+    );
+    return editedQuestions;
 }
 
 /***
@@ -240,5 +281,15 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number
 ): Question[] {
-    return [];
+    const targetIndex = questions.findIndex(
+        (question: Question): boolean => question.id === targetId
+    );
+    const targetQuestion = { ...questions[targetIndex] };
+    const targetQuestions = { ...questions };
+    targetQuestions.splice(
+        targetIndex,
+        0,
+        duplicateQuestion(newId, targetQuestion)
+    );
+    return targetQuestions;
 }
