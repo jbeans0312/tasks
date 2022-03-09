@@ -246,10 +246,8 @@ export function editOption(
     newOption: string
 ): Question[] {
     //learned how to use lamdas B)
-    
     console.log("OG Questions\n");
     console.log(questions);
-    
     const editOp = function (q: Question, targetIndex: number, newOp: string) {
         let newQ: Question;
         if (targetIndex === -1) {
