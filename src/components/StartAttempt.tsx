@@ -5,18 +5,35 @@ export function StartAttempt(): JSX.Element {
     const [attempts, incrementAttempts] = useState<number>(4);
     const [inProgress, flipProgress] = useState<boolean>(false);
 
-    function changeAttempts(change: number): void {}
+    function changeAttempts(change: number): void {
+        incrementAttempts(attempts + change);
+    }
 
     return (
         <div>
-            <Button
-                onClick={() => {
-                    flipProgress(true);
-                    changeAttempts(1);
-                }}
-            >
-                Start Quiz
-            </Button>
+            <div>
+                <Button
+                    onClick={() => {
+                        flipProgress(true);
+                        changeAttempts(-1);
+                    }}
+                    disabled={inProgress || attempts === 0}
+                >
+                    Start Quiz
+                </Button>
+                <Button
+                    onClick={() => flipProgress(false)}
+                    disabled={!inProgress}
+                >
+                    Stop Quiz
+                </Button>
+            </div>
+            <div>
+                <Button onClick={() => changeAttempts(1)} disabled={inProgress}>
+                    Mulligan
+                </Button>
+                {attempts}
+            </div>
         </div>
     );
 }
