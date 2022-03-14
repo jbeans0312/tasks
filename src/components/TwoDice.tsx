@@ -20,28 +20,26 @@ export function TwoDice(): JSX.Element {
     return (
         <div>
             <div>
-                <Button
-                    data-testid="left-die"
-                    onClick={() => {
-                        rollDieL(d6());
-                    }}
-                >
-                    Roll Left
-                </Button>
-                <Button
-                    data-testid="right-die"
-                    onClick={() => {
-                        rollDieR(d6());
-                    }}
-                >
-                    Roll Right
-                </Button>
-            </div>
-            <div>
-                <div>
-                    <span>{dieL}</span>
-                    <span>{dieR}</span>
-                </div>
+                <span data-testid="left-die">
+                    <Button
+                        onClick={() => {
+                            rollDieL(d6());
+                        }}
+                    >
+                        Roll Left
+                    </Button>
+                    Left die: {dieL}
+                </span>
+                <span data-testid="right-die">
+                    <Button
+                        onClick={() => {
+                            rollDieR(d6());
+                        }}
+                    >
+                        Roll Right
+                    </Button>
+                    Right die: {dieR}
+                </span>
             </div>
             <div>
                 {dieR === dieL ? (
