@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
+//I luv Stardew Valley
 export type Holiday =
     | "🥚" //Egg Festival
     | "🌸" //Flower Dance
@@ -34,7 +35,7 @@ export function CycleHoliday(): JSX.Element {
                     Advance by Alphabet
                 </Button>
                 <Button onClick={() => cycle(bySeason[currentHoliday])}>
-                    Advance by Season
+                    Advance by Year
                 </Button>
             </div>
             <div>
