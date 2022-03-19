@@ -54,6 +54,7 @@ export function GiveAttempts(): JSX.Element {
                 <Form.Group controlId="updateRequestAttempts">
                     <Form.Label>Request Attempts</Form.Label>
                     <Form.Control
+                        type="number"
                         value={requestedAttempts}
                         onChange={updateRequest}
                     />
