@@ -1,76 +1,39 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
-interface AttemptProps {
-    setRemaining: (request: number) => void;
-    remainingAttempts: number;
-    requestedAttempts: number;
-}
-
-function UseButton({
-    setRemaining,
-    remainingAttempts
-}: AttemptProps): JSX.Element {
-    return (
-        <Button
-            onClick={() => setRemaining(remainingAttempts - 1)}
-            disabled={remainingAttempts === 0}
-        >
-            Use
-        </Button>
-    );
-}
-
-function AddButton({
-    setRemaining,
-    remainingAttempts,
-    requestedAttempts
-}: AttemptProps): JSX.Element {
-    return (
-        <Button
-            onClick={() => setRemaining(remainingAttempts + requestedAttempts)}
-        >
-            Add
-        </Button>
-    );
-}
-
 export function GiveAttempts(): JSX.Element {
     const [remainingAttempts, setRemaining] = useState<number>(3);
-    const [requestedAttempts, setRequested] = useState<number>(0);
+    const [requestedAttempts, setRequested] = useState<string>("");
+    const requested = parseInt(requestedAttempts) || 0;
 
-    function updateRequest(event: React.ChangeEvent<HTMLInputElement>) {
-        const userInput = parseInt(event.target.value);
-        if (!isNaN(userInput)) {
-            setRequested(userInput);
-        }
-    }
+    const useAttempt = (): void => {
+        setRemaining(remainingAttempts - 1);
+    };
+
+    const addAttempts = (): void => {
+        setRemaining(remainingAttempts + requested);
+    };
 
     return (
         <div>
-            <h3>Give Attempts</h3>
             <div>
-                <span>{remainingAttempts}</span>
-                <Form.Group controlId="updateRequestAttempts">
-                    <Form.Label>Request Attempts</Form.Label>
+                <Button onClick={useAttempt} disabled={remainingAttempts === 0}>
+                    use
+                </Button>
+                <Button onClick={addAttempts}>gain</Button>
+            </div>
+            <div>
+                <Form.Group controlId="giveAttempts">
+                    <Form.Label>Requested Attempts:</Form.Label>
                     <Form.Control
                         type="number"
                         value={requestedAttempts}
-                        onChange={updateRequest}
+                        onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                        ) => setRequested(event.target.value)}
                     />
                 </Form.Group>
-            </div>
-            <div>
-                <UseButton
-                    setRemaining={setRemaining}
-                    remainingAttempts={remainingAttempts}
-                    requestedAttempts={requestedAttempts}
-                ></UseButton>
-                <AddButton
-                    setRemaining={setRemaining}
-                    remainingAttempts={remainingAttempts}
-                    requestedAttempts={requestedAttempts}
-                ></AddButton>
+                <div>{remainingAttempts}.</div>{" "}
             </div>
         </div>
     );
