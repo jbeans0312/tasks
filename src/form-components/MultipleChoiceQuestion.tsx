@@ -10,30 +10,25 @@ export function MultipleChoiceQuestion({
 }): JSX.Element {
     const [answer, setAnswer] = useState<string>(options[0]);
 
-    function AnswerDropDown(): JSX.Element {
-        function updateAnswer(event: React.ChangeEvent<HTMLSelectElement>) {
-            setAnswer(event.target.value);
-        }
-        return (
-            <Form.Group controlId="multipleChoiceQuestions">
-                <Form.Label>Choose an answer!</Form.Label>
-                <Form.Select value={answer} onChange={updateAnswer}>
-                    {options.map((ans: string) => (
-                        <option key={ans} value={ans}>
-                            {ans}
-                        </option>
-                    ))}
-                </Form.Select>
-            </Form.Group>
-        );
+    function updateAnswer(event: React.ChangeEvent<HTMLSelectElement>) {
+        setAnswer(event.target.value);
     }
-
     return (
         <div>
             <h3>Multiple Choice Question</h3>
             <div>
-                <AnswerDropDown></AnswerDropDown>
-                {answer === expectedAnswer ? "✔️" : "❌"}
+                <Form.Group controlId="multipleChoiceQuestions">
+                    <Form.Label>Choose an answer!</Form.Label>
+                    <Form.Select value={answer} onChange={updateAnswer}>
+                        {options.map((ans: string) => (
+                            <option key={ans} value={ans}>
+                                {ans}
+                            </option>
+                        ))}
+                    </Form.Select>
+                </Form.Group>
+                Result{" "}
+                {answer === expectedAnswer ? <span>✔️ </span> : <span>❌</span>}
             </div>
         </div>
     );
