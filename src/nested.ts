@@ -246,8 +246,6 @@ export function editOption(
     newOption: string
 ): Question[] {
     //learned how to use lamdas B)
-    console.log("OG Questions\n");
-    console.log(questions);
     const editOp = function (q: Question, targetIndex: number, newOp: string) {
         let newQ: Question;
         if (targetIndex === -1) {
@@ -256,8 +254,6 @@ export function editOption(
             newQ = { ...q, options: [...q.options] };
             newQ.options.splice(targetIndex, 1, newOp);
         }
-        console.log("newQ\n");
-        console.log(newQ);
         return newQ;
     };
 
@@ -267,8 +263,6 @@ export function editOption(
                 ? editOp(question, targetOptionIndex, newOption)
                 : question
     );
-    console.log("\neditedQuestions\n");
-    console.log(editedQuestions);
     return editedQuestions;
 }
 
